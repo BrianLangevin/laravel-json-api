@@ -378,7 +378,7 @@ class Route
      */
     private function parameter(string $name, $default = null)
     {
-        return $this->route ? $this->route->parameter($name, $default) : null;
+        return \Route::current() ? \Route::current()->parameter($name, $default) : null;
     }
 
 }
