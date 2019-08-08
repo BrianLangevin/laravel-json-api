@@ -82,6 +82,10 @@ class Route
      */
     public function substituteBindings(StoreInterface $store): void
     {
+        if (is_null($this->route)) {
+            $this->route = \Route::current();
+        }
+
         /** Cache the ID values so that we still have access to them. */
         $this->resourceId = $this->getResourceId() ?: false;
         $this->processId = $this->getProcessId() ?: false;
@@ -378,7 +382,7 @@ class Route
      */
     private function parameter(string $name, $default = null)
     {
-        return \Route::current() ? \Route::current()->parameter($name, $default) : null;
+        return $this->route ? $this->route->parameter($name, $default) : null;
     }
 
 }
